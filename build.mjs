@@ -5,7 +5,6 @@ import fs from 'node:fs';
 //   dist/index.html       the page body for the Claude-hosted copy (the host adds the document skeleton)
 //   dist/site/index.html  a complete standalone page for GitHub Pages
 // dist/preview.html wraps the first for local browser checks.
-const CLAUDE_URL = 'https://claude.ai/artifact/KYWVAJa44rKUjyjfty616r';
 const TITLE = 'COMPX361 Test 2 Trainer';
 const DESCRIPTION = 'Step-by-step practice for COMPX361 Test 2: Turing numbers, grammars, propositional and predicate logic, induction.';
 
@@ -52,7 +51,7 @@ fs.writeFileSync('dist/index.html', page);
 const localFonts = fs.existsSync('tools/preview-fonts.css') ? `<style>${fs.readFileSync('tools/preview-fonts.css', 'utf8')}</style>` : '';
 fs.writeFileSync('dist/preview.html', `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0;font-family:system-ui,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>${localFonts}</head><body>${page.replace(/<link rel="stylesheet"[^>]+>/, '')}</body></html>`);
 
-// ---- GitHub Pages copy: a whole document, linking to the Claude-hosted copy for Claude marking.
+// ---- GitHub Pages copy: a whole document. It can't use Claude marking, so it doesn't mention it.
 // Icon: a strip of the course's punched tape ("1", "4", "/").
 const holes = ['10001', '10100', '11111'].flatMap((code, c) => [...code].map((b, r) => (b === '1'
   ? `<circle cx="${9 + c * 7}" cy="${6 + r * 5}" r="2.2" fill="#fbfcfe"/>`
@@ -78,7 +77,7 @@ ${fontLinks}
 <body>
 <noscript><p style="padding:24px;font-family:system-ui,sans-serif">The trainer needs JavaScript switched on.</p></noscript>
 <div id="app"></div>
-<script>${await bundle({ __CLAUDE_URL__: JSON.stringify(CLAUDE_URL) })}</script>
+<script>${await bundle({ __STANDALONE__: 'true' })}</script>
 </body>
 </html>
 `;

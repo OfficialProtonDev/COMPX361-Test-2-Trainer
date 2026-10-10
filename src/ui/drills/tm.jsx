@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'preact/hooks';
+import { STANDALONE } from '../host.js';
 import * as TM from '../../engines/tmcode.js';
 import { runMoore, validateMoore, TUT5, MOORE_TARGETS, checkMooreDesign, randomMoore } from '../../engines/moore.js';
 import { Rng } from '../../engines/rng.js';
@@ -283,7 +284,7 @@ export function TheoryDrill({ preset }) {
   return (
     <div class="sheet">
       <DrillHeader id={id} kicker="Turing machines · TM3, TM4, GRAM3" title="Explain it: halting problem, universal TMs, undecidability"
-        sub="These 3–4 mark explanations appear every year. Write your answer, then have it marked against the model answer.">
+        sub={`These 3–4 mark explanations appear every year. Write your answer, then ${STANDALONE ? 'mark it' : 'have it marked'} against the model answer.`}>
         <Seg value={tid} onChange={setTid} label="Question" options={THEORY.map((x) => ({ value: x.id, label: x.title }))} />
       </DrillHeader>
       <div class="question"><div class="qmeta"><Chip kind="src">{t.src}</Chip><Chip kind="marks">{t.marks} mark{t.marks > 1 ? 's' : ''}</Chip></div><div class="qtext">{t.q}</div></div>

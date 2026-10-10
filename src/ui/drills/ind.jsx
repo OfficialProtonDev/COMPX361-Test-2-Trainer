@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'preact/hooks';
+import { STANDALONE } from '../host.js';
 import * as A from '../../engines/algebra.js';
 import { BANK, generated, checkChain, checkBase, checkStatement, modelProof, stampBases, checkStampRep, REASONS, sideAt, functionsFor, showE } from '../../engines/induction.js';
 import { newSeed } from '../../engines/rng.js';
@@ -460,7 +461,9 @@ export function WriteDrill({ preset }) {
   return (
     <div class="sheet">
       <DrillHeader id="i-write" kicker="Induction" title="Write a full proof"
-        sub="Write the proof as you would on paper. Claude marks it against a model answer in the lecturer’s layout, using the mark split circled on the 2023 official solutions (adapted for strong induction); without Claude, use the checklist.">
+        sub={STANDALONE
+          ? 'Write the proof as you would on paper, then mark it with the checklist against a model answer in the lecturer’s layout, using the mark split circled on the 2023 official solutions (adapted for strong induction).'
+          : 'Write the proof as you would on paper. Claude marks it against a model answer in the lecturer’s layout, using the mark split circled on the 2023 official solutions (adapted for strong induction); without Claude, use the checklist.'}>
         <select class="input" style={{ width: 'auto', minWidth: '260px', maxWidth: '100%' }} value={pid} onChange={(e) => setPid(e.currentTarget.value)} aria-label="Problem">
           {[...GROUPS, ...SGROUPS].map(([name, f]) => <optgroup key={name} label={name}>{BANK.filter(f).map((p) => <option key={p.id} value={p.id}>{p.title} · {p.src}</option>)}</optgroup>)}
         </select>

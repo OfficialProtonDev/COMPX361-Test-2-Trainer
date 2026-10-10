@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
 import { Btn, Fb, cx, MathText } from './kit.jsx';
 import { getDraft, setDraft } from './store.js';
-import { CLAUDE_URL } from './host.js';
+import { STANDALONE } from './host.js';
 
 // The page asks Claude through the artifact's `sample` capability (each viewer's own account).
 let samplePromise = null;
@@ -95,7 +95,7 @@ export function WrittenAnswer({ id, question, marks, model, scheme, notes, place
         {avail && <Btn kind="primary" onClick={mark} disabled={busy}>{busy ? 'Marking…' : res ? 'Mark again' : 'Mark with Claude'}</Btn>}
         {busy && <Btn kind="ghost" onClick={() => ctl.current?.abort()}>Stop</Btn>}
         <Btn kind={avail ? 'ghost' : 'primary'} onClick={() => setShowModel((s) => !s)}>{showModel ? 'Hide model answer' : 'Show model answer & checklist'}</Btn>
-        {avail === false && <span class="small faint">{CLAUDE_URL ? <>Claude marking works when you <a href={CLAUDE_URL} target="_blank" rel="noopener">open the trainer in Claude</a>; the checklist works everywhere.</> : 'Claude marking needs the page opened inside Claude; the checklist works everywhere.'}</span>}
+        {avail === false && !STANDALONE && <span class="small faint">Claude marking needs the page opened inside Claude; the checklist works everywhere.</span>}
       </div>
       {busy && <Fb kind="info">Claude is reading your answer against the model answer and the mark split. This can take up to a minute.</Fb>}
       {err && <Fb kind="hint">{err}</Fb>}

@@ -25,7 +25,7 @@ import { disguise } from '../drills/pred.jsx';
 import { proofScheme, PROOF_NOTES, PROOF_PLACEHOLDER } from '../drills/ind.jsx';
 import { upsertMock, mocks } from '../store.js';
 import { DRILLS } from '../registry.jsx';
-import { CLAUDE_URL } from '../host.js';
+import { STANDALONE } from '../host.js';
 
 const MOCK_KEY = 'compx361-t2-mock-v1';
 const DURATION = 60 * 60 * 1000;
@@ -1051,7 +1051,7 @@ function MockStart({ onStart }) {
       <header class="stack-sm">
         <div class="h-kicker">Mock test · 60 minutes · 40 marks</div>
         <h1 class="h-title">Sit a mock Test 2</h1>
-        <p class="h-sub">A fresh paper generated in the format of a past test: the same question types and mark values, new numbers. No hints or checking until you submit; then everything is marked, with model answers in the lecturer’s layout. Written answers are marked by Claude when it’s available here, otherwise by you with a checklist.</p>
+        <p class="h-sub">A fresh paper generated in the format of a past test: the same question types and mark values, new numbers. No hints or checking until you submit; then everything is marked, with model answers in the lecturer’s layout. {STANDALONE ? 'You mark the written answers yourself with a checklist.' : 'Written answers are marked by Claude when it’s available here, otherwise by you with a checklist.'}</p>
       </header>
       <section class="card stack">
         <div class="label">Paper format</div>
@@ -1212,7 +1212,7 @@ function ResultsHead({ st, paper, marked, q }) {
         <span class="small faint">{st.autoSubmitted ? 'Submitted automatically when time ran out' : `Time used: ${clock(used)}`}</span>
       </div>
       {q.busy && <Fb kind="info">Claude is marking your written answers against the model answers, one at a time. This can take a minute or two.</Fb>}
-      {q.avail === false && q.count > 0 && <Fb kind="hint">Claude marking isn’t available here (it works when the page is opened {CLAUDE_URL ? <a href={CLAUDE_URL} target="_blank" rel="noopener">inside Claude</a> : 'inside Claude'}). Mark the written answers yourself: each has a model answer and a checklist.</Fb>}
+      {q.avail === false && q.count > 0 && <Fb kind="hint">{STANDALONE ? '' : 'Claude marking isn’t available here (it works when the page is opened inside Claude). '}Mark the written answers yourself: each has a model answer and a checklist.</Fb>}
       {st.claudeStop && <Fb kind="hint">Claude marking was turned down or isn’t available on this account, so use the checklists for the written answers.</Fb>}
       <div class="topic-bars">
         {Object.entries(topics).map(([t, x]) => (

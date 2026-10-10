@@ -1,4 +1,4 @@
-// Where this copy runs. The GitHub Pages build sets __CLAUDE_URL__ to the Claude-hosted copy, so
-// pages there can point people to it for Claude marking; the Claude-hosted build leaves it empty.
-/* global __CLAUDE_URL__ */
-export const CLAUDE_URL = typeof __CLAUDE_URL__ !== 'undefined' ? __CLAUDE_URL__ : '';
+// Which copy this is. The GitHub Pages build defines __STANDALONE__: Claude marking can't run there,
+// so that copy doesn't mention it at all. The Claude-hosted copy offers it when the viewer allows.
+/* global __STANDALONE__ */
+export const STANDALONE = typeof __STANDALONE__ !== 'undefined' && __STANDALONE__ === true;

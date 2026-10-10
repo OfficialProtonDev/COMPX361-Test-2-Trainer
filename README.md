@@ -14,7 +14,7 @@ An unofficial study tool for **COMPX361 Logic and Computation (University of Wai
 
 Your progress is saved in your own browser only. There's no account and no server.
 
-On this site you mark written answers against a checklist. The copy hosted on Claude, which the site links to, can also mark them with Claude, using your own Claude account.
+You mark written answers yourself, against a model answer and a checklist.
 
 ## Development
 

@@ -8,6 +8,7 @@ import { HomePage } from './pages/home.jsx';
 import { PapersPage } from './pages/papers.jsx';
 import { MockPage } from './pages/mock.jsx';
 import { ReferencePage } from './pages/reference.jsx';
+import { STANDALONE } from './host.js';
 
 const mk = (id, title, icon, topic, desc, C) => ({ id, title, icon, topic, desc, C });
 
@@ -35,7 +36,7 @@ export const DRILLS = Object.fromEntries([
   mk('i-proof', 'Induction proof builder', 'ℕ', 'Induction', 'Predicate, base case, hypothesis, working, conclusion.', ProofDrill),
   mk('i-strong', 'Strong induction', '⇈', 'Induction', 'Recurrences with two base cases, and stamp problems.', StrongDrill),
   mk('i-flaw', 'Spot the flaw', '?', 'Induction', 'What is wrong with these “proofs”?', FlawDrill),
-  mk('i-write', 'Write a full proof', '□', 'Induction', 'Type a whole proof; Claude marks it against a model answer.', WriteDrill),
+  mk('i-write', 'Write a full proof', '□', 'Induction', STANDALONE ? 'Type a whole proof and mark it against a model answer.' : 'Type a whole proof; Claude marks it against a model answer.', WriteDrill),
 ].map((d) => [d.id, d]));
 
 export const PAGES = {

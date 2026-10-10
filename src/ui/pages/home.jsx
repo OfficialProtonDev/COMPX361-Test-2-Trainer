@@ -4,7 +4,7 @@ import { allStats, mocks, subscribe } from '../store.js';
 import { Btn, Mastery, cx } from '../kit.jsx';
 import { CODE } from '../../engines/tmcode.js';
 import { activeMock } from './mock.jsx';
-import { CLAUDE_URL } from '../host.js';
+import { STANDALONE } from '../host.js';
 
 // The overview answers, in order: what is this and where do I start (first visit, often from a
 // shared link); what is worth the most marks (short on time); what next and how am I doing
@@ -290,9 +290,7 @@ export function HomePage() {
       </div>
 
       <footer class="home-foot">
-        <p>Every step is checked as you go: truth-table cells, each law in a proof, every line of induction working, each derivation step, and each grammar against every short string.{CLAUDE_URL
-          ? <> Written answers are marked against a checklist here; <a href={CLAUDE_URL} target="_blank" rel="noopener">open the trainer in Claude</a> to have Claude mark them through your own Claude account.</>
-          : ' Written answers can be marked by Claude through your own Claude account (it asks first); otherwise you mark them against a checklist.'}</p>
+        <p>Every step is checked as you go: truth-table cells, each law in a proof, every line of induction working, each derivation step, and each grammar against every short string.{STANDALONE ? '' : ' Written answers can be marked by Claude through your own Claude account (it asks first); otherwise you mark them against a checklist.'}</p>
         <p>An unofficial study aid made from the COMPX361 notes, tutorials and past tests; not produced or checked by the course staff.</p>
       </footer>
     </div>
