@@ -1,0 +1,91 @@
+// Exercises for the propositional-logic drills, with sources.
+
+export const STATUS_BANK = [
+  { f: '¬(p ∧ q) ∨ (p → q)', src: 'PROP2 notes' },
+  { f: '¬p → (q ∧ ¬r)', src: 'PROP2 notes' },
+  { f: '(¬p ∧ ¬q) ∧ (q ∨ p)', src: 'Tutorial 7 Q1(a)' },
+  { f: '(p ∨ q) → ¬p', src: 'Tutorial 7 Q1(b)' },
+  { f: 'p ∨ (p → q)', src: '2025 Test 2 Q6' },
+  { f: '((p → q) ∧ p) → q', src: 'PROP4 notes' },
+  { f: '((p ∨ q) ∧ p) → ¬q', src: 'PROP4 notes' },
+  { f: '(p ∧ q) ∧ ¬q', src: 'PROP3 notes' },
+  { f: '(p → q) ↔ (¬q → ¬p)', src: 'Tutorial 7 Q2' },
+  { f: '(p ⊕ q) → (p ∨ q)', src: 'PROP4 notes' },
+  { f: '(p → q) ∧ (q → r) ∧ p ∧ ¬r', src: 'practice' },
+  { f: '(p ↔ q) ⊕ (p ⊕ q)', src: 'practice' },
+  { f: '¬(p → q) ∧ (q ∨ ¬p)', src: 'practice' },
+  { f: '(p → r) ∨ (q → ¬r)', src: 'practice' },
+];
+
+export const EQUIV_BANK = [
+  { a: 'p ↑ q', b: '(p ∧ q) → F', src: '2024 Test 2 Q7(b)', rel: 'equiv' },
+  { a: 'p ↔ q', b: '(p → q) ∧ (q → p)', src: 'PROP3 notes', rel: 'equiv' },
+  { a: 'p → q', b: '¬q → ¬p', src: 'Tutorial 7 Q2', rel: 'equiv' },
+  { a: 'p ↔ (p ∨ q)', b: 'q → p', src: 'PROP3 exercise', rel: 'equiv' },
+  { a: 'p ⊕ q', b: '(p ∨ q) ∧ ¬(p ∧ q)', src: 'practice', rel: 'equiv' },
+  { a: 'p → (q → r)', b: '(p ∧ q) → r', src: 'practice', rel: 'equiv' },
+  { a: 'p ⊕ q', b: 'p ∨ q', src: 'PROP4 notes', rel: 'conseq' },
+  { a: '(p → q) ∧ p', b: 'q', src: 'PROP4 notes', rel: 'conseq' },
+  { a: 'p → q', b: 'q → p', src: 'practice', rel: 'neither' },
+  { a: '(p ∨ q) ∧ p', b: '¬q', src: 'PROP4 notes', rel: 'neither' },
+  { a: 'p ∧ q', b: 'p ↔ q', src: 'practice', rel: 'conseq' },
+  { a: '¬(p ∧ q)', b: '¬p ∧ ¬q', src: 'common mistake', rel: 'reverse' },
+];
+
+// Law-by-law proofs with a worked path [formula, laws used].
+export const LAW_BANK = [
+  { id: 'warm-cond', a: 'p → q', b: '¬p ∨ q', src: 'warm-up', lvl: 1, path: [['¬p ∨ q', ['cond']]] },
+  { id: 'prop3-ex1', a: '¬(¬p ∨ ¬(q ∨ r))', b: '(p ∧ q) ∨ (p ∧ r)', src: 'PROP3 notes', lvl: 1,
+    path: [['¬¬p ∧ ¬¬(q ∨ r)', ['demorgan']], ['p ∧ (q ∨ r)', ['dneg']], ['(p ∧ q) ∨ (p ∧ r)', ['dist']]] },
+  { id: 'prop3-unsat', a: '(p ∧ q) ∧ ¬q', b: 'F', src: 'PROP3 notes (unsatisfiable)', lvl: 1,
+    path: [['p ∧ (q ∧ ¬q)', ['assoc']], ['p ∧ F', ['excl']], ['F', ['dom']]] },
+  { id: 't25-q6', a: 'p ∨ (p → q)', b: 'T', src: '2025 Test 2 Q6', lvl: 1,
+    path: [['p ∨ (¬p ∨ q)', ['cond']], ['(p ∨ ¬p) ∨ q', ['assoc']], ['T ∨ q', ['excl']], ['T', ['dom']]] },
+  { id: 'tut7-q2', a: '¬q → ¬p', b: 'p → q', src: 'Tutorial 7 Q2 (contrapositive)', lvl: 1,
+    path: [['¬¬q ∨ ¬p', ['cond']], ['q ∨ ¬p', ['dneg']], ['¬p ∨ q', ['comm']], ['p → q', ['cond']]] },
+  { id: 'nand-imp', a: 'p ↑ q', b: '(p ∧ q) → F', src: '2024 Test 2 Q7(b), by laws', lvl: 1,
+    path: [['¬(p ∧ q)', ['nand']], ['¬(p ∧ q) ∨ F', ['ident']], ['(p ∧ q) → F', ['cond']]] },
+  { id: 'neg-imp', a: '¬(p → q)', b: 'p ∧ ¬q', src: 'practice', lvl: 1,
+    path: [['¬(¬p ∨ q)', ['cond']], ['¬¬p ∧ ¬q', ['demorgan']], ['p ∧ ¬q', ['dneg']]] },
+  { id: 'absorb', a: 'p ∧ (¬p ∨ q)', b: 'p ∧ q', src: 'practice', lvl: 2,
+    path: [['(p ∧ ¬p) ∨ (p ∧ q)', ['dist']], ['F ∨ (p ∧ q)', ['excl']], ['(p ∧ q) ∨ F', ['comm']], ['p ∧ q', ['ident']]] },
+  { id: 'imp-and', a: '(p → q) ∧ (p → r)', b: 'p → (q ∧ r)', src: 'practice', lvl: 2,
+    path: [['(¬p ∨ q) ∧ (¬p ∨ r)', ['cond']], ['¬p ∨ (q ∧ r)', ['dist']], ['p → (q ∧ r)', ['cond']]] },
+  { id: 'absorb2', a: 'p ∨ (p ∧ q)', b: 'p', src: 'absorption', lvl: 2,
+    path: [['(p ∧ T) ∨ (p ∧ q)', ['ident']], ['p ∧ (T ∨ q)', ['dist']], ['p ∧ T', ['dom']], ['p', ['ident']]] },
+  { id: 'simp-taut', a: '(p ∧ q) → p', b: 'T', src: 'practice', lvl: 2,
+    path: [['¬(p ∧ q) ∨ p', ['cond']], ['(¬p ∨ ¬q) ∨ p', ['demorgan']], ['p ∨ (¬p ∨ ¬q)', ['comm']], ['(p ∨ ¬p) ∨ ¬q', ['assoc']], ['T ∨ ¬q', ['excl']], ['T', ['dom']]] },
+  { id: 'mp-taut', a: '((p → q) ∧ p) → q', b: 'T', src: 'PROP4 (modus ponens is valid)', lvl: 3,
+    path: [['¬((p → q) ∧ p) ∨ q', ['cond']], ['(¬(p → q) ∨ ¬p) ∨ q', ['demorgan']], ['¬(p → q) ∨ (¬p ∨ q)', ['assoc']], ['¬(p → q) ∨ (p → q)', ['cond']], ['(p → q) ∨ ¬(p → q)', ['comm']], ['T', ['excl']]] },
+  { id: 'or-imp', a: '(p → r) ∧ (q → r)', b: '(p ∨ q) → r', src: 'practice', lvl: 3,
+    path: [['(¬p ∨ r) ∧ (¬q ∨ r)', ['cond']], ['(r ∨ ¬p) ∧ (r ∨ ¬q)', ['comm']], ['r ∨ (¬p ∧ ¬q)', ['dist']], ['r ∨ ¬(p ∨ q)', ['demorgan']], ['¬(p ∨ q) ∨ r', ['comm']], ['(p ∨ q) → r', ['cond']]] },
+  { id: 'k-taut', a: 'p → (q → p)', b: 'T', src: 'practice', lvl: 2,
+    path: [['¬p ∨ (q → p)', ['cond']], ['¬p ∨ (¬q ∨ p)', ['cond']], ['¬p ∨ (p ∨ ¬q)', ['comm']], ['(¬p ∨ p) ∨ ¬q', ['assoc']], ['(p ∨ ¬p) ∨ ¬q', ['comm']], ['T ∨ ¬q', ['excl']], ['T', ['dom']]] },
+  { id: 'neg-or', a: '¬(p ∨ (¬p ∧ q))', b: '¬p ∧ ¬q', src: 'practice', lvl: 3,
+    path: [['¬p ∧ ¬(¬p ∧ q)', ['demorgan']], ['¬p ∧ (¬¬p ∨ ¬q)', ['demorgan']], ['¬p ∧ (p ∨ ¬q)', ['dneg']], ['(¬p ∧ p) ∨ (¬p ∧ ¬q)', ['dist']], ['(p ∧ ¬p) ∨ (¬p ∧ ¬q)', ['comm']], ['F ∨ (¬p ∧ ¬q)', ['excl']], ['(¬p ∧ ¬q) ∨ F', ['comm']], ['¬p ∧ ¬q', ['ident']]] },
+  { id: 'prop3-valid', a: '¬(p ∧ q) ∨ (p → q)', b: 'T', src: 'PROP3 exercise (show it is valid)', lvl: 3,
+    path: [['¬(p ∧ q) ∨ (¬p ∨ q)', ['cond']], ['(¬p ∨ ¬q) ∨ (¬p ∨ q)', ['demorgan']], ['((¬p ∨ ¬q) ∨ ¬p) ∨ q', ['assoc']], ['(¬p ∨ (¬q ∨ ¬p)) ∨ q', ['assoc']], ['(¬p ∨ (¬p ∨ ¬q)) ∨ q', ['comm']], ['((¬p ∨ ¬p) ∨ ¬q) ∨ q', ['assoc']], ['(¬p ∨ ¬q) ∨ q', ['idem']], ['¬p ∨ (¬q ∨ q)', ['assoc']], ['¬p ∨ (q ∨ ¬q)', ['comm']], ['¬p ∨ T', ['excl']], ['T', ['dom']]] },
+  { id: 'prop3-ex2', a: 'p ↔ (p ∨ q)', b: 'q → p', src: 'PROP3 exercise', lvl: 3,
+    path: [['(p → (p ∨ q)) ∧ ((p ∨ q) → p)', ['bicond']], ['(¬p ∨ (p ∨ q)) ∧ (¬(p ∨ q) ∨ p)', ['cond']], ['((¬p ∨ p) ∨ q) ∧ (¬(p ∨ q) ∨ p)', ['assoc']], ['((p ∨ ¬p) ∨ q) ∧ (¬(p ∨ q) ∨ p)', ['comm']], ['(T ∨ q) ∧ (¬(p ∨ q) ∨ p)', ['excl']], ['T ∧ (¬(p ∨ q) ∨ p)', ['dom']], ['(¬(p ∨ q) ∨ p) ∧ T', ['comm']], ['¬(p ∨ q) ∨ p', ['ident']], ['(¬p ∧ ¬q) ∨ p', ['demorgan']], ['p ∨ (¬p ∧ ¬q)', ['comm']], ['(p ∨ ¬p) ∧ (p ∨ ¬q)', ['dist']], ['T ∧ (p ∨ ¬q)', ['excl']], ['(p ∨ ¬q) ∧ T', ['comm']], ['p ∨ ¬q', ['ident']], ['¬q ∨ p', ['comm']], ['q → p', ['cond']]] },
+];
+
+export const NAND_BANK = [
+  { f: 'p ∨ (¬q ∧ r)', target: 'nand', src: 'Tutorial 7 Q5 / 2025 Test 2 Q8' },
+  { f: 'p ⊕ q', target: 'nand', src: '2023 Test 2 Q7' },
+  { f: 'p → q', target: 'nand', src: 'practice' },
+  { f: 'p ∧ ¬q', target: 'nand', src: 'practice' },
+  { f: 'p ↔ q', target: 'nand', src: 'practice' },
+  { f: '(p ∧ q) ∨ r', target: 'nand', src: 'practice' },
+  { f: 'p ↑ (q ↑ r)', target: 'notandor', src: 'Tutorial 7 Q4' },
+  { f: 'p ∨ q', target: 'fimp', src: 'PROP5 ({F, →} is functionally complete)' },
+  { f: 'p ∧ q', target: 'fimp', src: 'PROP5' },
+  { f: 'p ∨ (q ∧ r)', target: 'nor', src: 'practice' },
+  { f: 'p → (q ∨ r)', target: 'notand', src: 'practice' },
+  { f: 'p ⊕ q', target: 'notor', src: 'practice' },
+];
+
+export const DNF_SPECIAL = [
+  { desc: 'A certain WFF P involving p, q, r is true if and only if p has the same truth value as q ↔ r. Write down a WFF equivalent to P.', f: 'p ↔ (q ↔ r)', src: '2023 Test 2 Q6', vars: ['p', 'q', 'r'] },
+  { desc: 'P is true exactly when an odd number of p, q, r are true.', f: '(p ⊕ q) ⊕ r', src: 'practice', vars: ['p', 'q', 'r'] },
+  { desc: 'P is true exactly when at least two of p, q, r are true (a “majority” function).', f: '(p ∧ q) ∨ (p ∧ r) ∨ (q ∧ r)', src: 'practice', vars: ['p', 'q', 'r'] },
+];
