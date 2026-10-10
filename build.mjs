@@ -34,8 +34,8 @@ const fonts = 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Ne
 const fontLinks = `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${fonts}">`;
-// Apply a saved Light/Dark choice before the first paint.
-const themeBoot = `<script>try{var p=JSON.parse(localStorage.getItem('compx361-t2-trainer-v1')||'{}').prefs,t=p&&p.theme;if(t==='light'||t==='dark')document.documentElement.setAttribute('data-user-theme',t)}catch(e){}</script>`;
+// Set the theme before the first paint: Light unless the viewer has chosen Dark or System.
+const themeBoot = `<script>var t='light';try{var p=JSON.parse(localStorage.getItem('compx361-t2-trainer-v1')||'{}').prefs;if(p&&(p.theme==='dark'||p.theme==='system'))t=p.theme}catch(e){}if(t!=='system')document.documentElement.setAttribute('data-user-theme',t)</script>`;
 
 // ---- Claude-hosted copy
 const page = `<title>${TITLE}</title>

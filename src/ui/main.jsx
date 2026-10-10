@@ -5,8 +5,8 @@ import { Mastery, Btn, Seg, cx } from './kit.jsx';
 import { getPref, setPref } from './store.js';
 import { CODE } from '../engines/tmcode.js';
 
-// Colour theme: 'system' follows the device (or the host page's data-theme, which we never touch);
-// 'light' / 'dark' pin it through data-user-theme, which the CSS ranks above both.
+// Colour theme, Light by default: 'light' / 'dark' pin it through data-user-theme, which the CSS ranks
+// above everything; 'system' follows the device (or the host page's data-theme, which we never touch).
 const THEMES = ['light', 'system', 'dark'];
 const THEME_LABEL = { light: 'Light', system: 'System', dark: 'Dark' };
 function applyTheme(t) {
@@ -15,9 +15,9 @@ function applyTheme(t) {
     else document.documentElement.removeAttribute('data-user-theme');
   } catch { /* ignore */ }
 }
-applyTheme(getPref('theme', 'system'));
+applyTheme(getPref('theme', 'light'));
 function useTheme() {
-  const [theme, setTheme] = useState(() => getPref('theme', 'system'));
+  const [theme, setTheme] = useState(() => getPref('theme', 'light'));
   const set = (t) => { setTheme(t); setPref('theme', t); applyTheme(t); };
   return [theme, set];
 }
